@@ -912,7 +912,6 @@
 		 * input / select element.
 		 */
 		onChange: function() {
-			this.$input.trigger('input');
 			this.$input.trigger('change');
 		},
 	
@@ -1305,8 +1304,8 @@
 	
 		/**
 		 * Resets the number of max items to the given value
-		 *
-		 * @param {number} value
+		 * 
+		 * @param {number} value 
 		 */
 		setMaxItems: function(value){
 			if(value === 0) value = null; //reset to unlimited items.
@@ -1664,7 +1663,7 @@
 				self.$dropdown.find('.selected').removeClass('selected');
 	
 				for (i = 0, n = self.items.length; i < n; i++) {
-					self.getOption(self.items[i]).addClass('selected');
+					$(self.getOption(self.items[i])).addClass('selected');
 				}
 			}
 	
@@ -1885,7 +1884,7 @@
 	
 		/**
 		 * Clears all options.
-		 *
+		 * 
 		 * @param {boolean} silent
 		 */
 		clearOptions: function(silent) {
@@ -1944,11 +1943,9 @@
 			value = hash_key(value);
 	
 			if (typeof value !== 'undefined' && value !== null) {
-				for (var i = 0, n = $els.length; i < n; i++) {
-					if ($els[i].getAttribute('data-value') === value) {
-						return $($els[i]);
-					}
-				}
+				return $.grep($els, function(elem) {
+					return elem.getAttribute('data-value') === value;
+				});
 			}
 	
 			return $();
@@ -2066,7 +2063,7 @@
 			var self = this;
 			var $item, i, idx;
 	
-			$item = (value instanceof $) ? value : self.getItem(value);
+			$item = (value instanceof $) ? value : $(self.getItem(value));
 			value = hash_key($item.attr('data-value'));
 			i = self.items.indexOf(value);
 	
@@ -3076,7 +3073,7 @@
 		}, options);
 	
 		this.getAdjacentOption = function($option, direction) {
-			var $options = $option.closest('[data-group]').find('[data-selectable]');
+			var $options = $($option).closest('[data-group]').find('[data-selectable]');
 			var index    = $options.index($option) + direction;
 	
 			return index >= 0 && index < $options.length ? $options.eq(index) : $();
@@ -3089,7 +3086,7 @@
 	
 				if (this.isOpen && (e.keyCode === KEY_LEFT || e.keyCode === KEY_RIGHT)) {
 					self.ignoreHover = true;
-					$optgroup = this.$activeOption.closest('[data-group]');
+					$optgroup = $(this.$activeOption).closest('[data-group]');
 					index = $optgroup.find('[data-selectable]').index(this.$activeOption);
 	
 					if(e.keyCode === KEY_LEFT) {
