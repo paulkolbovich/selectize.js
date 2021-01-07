@@ -1166,7 +1166,7 @@ $.extend(Selectize.prototype, {
 			self.$dropdown.find('.selected').removeClass('selected');
 
 			for (i = 0, n = self.items.length; i < n; i++) {
-				self.getOption(self.items[i]).addClass('selected');
+				$(self.getOption(self.items[i])).addClass('selected');
 			}
 		}
 
@@ -1446,11 +1446,9 @@ $.extend(Selectize.prototype, {
 		value = hash_key(value);
 
 		if (typeof value !== 'undefined' && value !== null) {
-			for (var i = 0, n = $els.length; i < n; i++) {
-				if ($els[i].getAttribute('data-value') === value) {
-					return $($els[i]);
-				}
-			}
+			return $.grep($els, function(elem) {
+				return elem.getAttribute('data-value') === value;
+			});
 		}
 
 		return $();
@@ -1568,7 +1566,7 @@ $.extend(Selectize.prototype, {
 		var self = this;
 		var $item, i, idx;
 
-		$item = (value instanceof $) ? value : self.getItem(value);
+		$item = (value instanceof $) ? value : $(self.getItem(value));
 		value = hash_key($item.attr('data-value'));
 		i = self.items.indexOf(value);
 
