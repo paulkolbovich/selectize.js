@@ -1348,7 +1348,7 @@ $.extend(Selectize.prototype, {
 
 		// update the item if it's selected
 		if (self.items.indexOf(value_new) !== -1) {
-			$item = self.getItem(value);
+			$item = $(self.getItem(value));
 			$item_new = $(self.render('item', data));
 			if ($item.hasClass('active')) $item_new.addClass('active');
 			$item.replaceWith($item_new);

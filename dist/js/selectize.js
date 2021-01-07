@@ -912,6 +912,7 @@
 		 * input / select element.
 		 */
 		onChange: function() {
+			this.$input.trigger('input');
 			this.$input.trigger('change');
 		},
 	
@@ -1304,8 +1305,8 @@
 	
 		/**
 		 * Resets the number of max items to the given value
-		 * 
-		 * @param {number} value 
+		 *
+		 * @param {number} value
 		 */
 		setMaxItems: function(value){
 			if(value === 0) value = null; //reset to unlimited items.
@@ -1845,7 +1846,7 @@
 	
 			// update the item if it's selected
 			if (self.items.indexOf(value_new) !== -1) {
-				$item = self.getItem(value);
+				$item = $(self.getItem(value));
 				$item_new = $(self.render('item', data));
 				if ($item.hasClass('active')) $item_new.addClass('active');
 				$item.replaceWith($item_new);
@@ -1884,7 +1885,7 @@
 	
 		/**
 		 * Clears all options.
-		 * 
+		 *
 		 * @param {boolean} silent
 		 */
 		clearOptions: function(silent) {
