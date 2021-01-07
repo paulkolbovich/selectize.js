@@ -1,7 +1,7 @@
 /**
  * Plugin: "optgroup_columns" (selectize.js)
  * Copyright (c) 2013 Simon Hewitt & contributors
- * Copyright (c) 2020 Selectize Team & contributors* 
+ * Copyright (c) 2020 Selectize Team & contributors*
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
  * file except in compliance with the License. You may obtain a copy of the License at:
@@ -24,7 +24,7 @@ Selectize.define('optgroup_columns', function(options) {
 	}, options);
 
 	this.getAdjacentOption = function($option, direction) {
-		var $options = $option.closest('[data-group]').find('[data-selectable]');
+		var $options = $($option).closest('[data-group]').find('[data-selectable]');
 		var index    = $options.index($option) + direction;
 
 		return index >= 0 && index < $options.length ? $options.eq(index) : $();
@@ -37,7 +37,7 @@ Selectize.define('optgroup_columns', function(options) {
 
 			if (this.isOpen && (e.keyCode === KEY_LEFT || e.keyCode === KEY_RIGHT)) {
 				self.ignoreHover = true;
-				$optgroup = this.$activeOption.closest('[data-group]');
+				$optgroup = $(this.$activeOption).closest('[data-group]');
 				index = $optgroup.find('[data-selectable]').index(this.$activeOption);
 
 				if(e.keyCode === KEY_LEFT) {
